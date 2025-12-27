@@ -1,0 +1,61 @@
+模倣学習で使用できるタスク名
+1. RoboMimicで訓練可能なタスク
+robomimic_bc_cfg_entry_pointを持つタスク。RoboMimicでBC（Behavioral Cloning）訓練が可能です。
+スタックタスク（Franka Panda）
+Isaac-Stack-Cube-Franka-IK-Rel-v0 - 相対姿勢制御（状態ベース）
+Isaac-Stack-Cube-Franka-IK-Rel-Visuomotor-v0 - 相対姿勢制御（ビジョン）
+Isaac-Stack-Cube-Franka-IK-Rel-Visuomotor-Cosmos-v0 - 相対姿勢制御（Cosmosビジョン）
+Isaac-Stack-Cube-Franka-IK-Abs-v0 - 絶対姿勢制御
+Isaac-Stack-Cube-Franka-IK-Rel-Skillgen-v0 - SkillGen用
+Isaac-Stack-Cube-Bin-Franka-IK-Rel-Mimic-v0 - ビン内スタッキング
+リフトタスク（Franka Panda）
+Isaac-Lift-Cube-Franka-IK-Rel-v0 - 相対姿勢制御
+ピックアンドプレースタスク（GR1T2）
+Isaac-PickPlace-GR1T2-Abs-v0 - 絶対姿勢制御
+Isaac-PickPlace-GR1T2-WaistEnabled-Abs-v0 - 腰関節有効
+Isaac-PickPlace-G1-InspireFTP-Abs-v0 - Unitree G1 Inspire Hand
+その他のマニピュレーションタスク
+Isaac-NutPour-GR1T2-Pink-IK-Abs-v0 - ナット注ぎ（ビジョン）
+Isaac-ExhaustPipe-GR1T2-Pink-IK-Abs-v0 - 排気パイプ（ビジョン）
+ロコマニピュレーションタスク
+Isaac-PickPlace-Locomanipulation-G1-Abs-v0 - 移動しながらピックアンドプレース
+2. Isaac Lab Mimicでデータ生成可能なタスク
+-Mimic-v0で終わるタスク。generate_dataset.pyでデータ生成が可能です。
+Franka Panda スタックタスク
+Isaac-Stack-Cube-Franka-IK-Rel-Mimic-v0 - 相対姿勢制御
+Isaac-Stack-Cube-Franka-IK-Rel-Blueprint-Mimic-v0 - Blueprint
+Isaac-Stack-Cube-Franka-IK-Abs-Mimic-v0 - 絶対姿勢制御
+Isaac-Stack-Cube-Franka-IK-Rel-Visuomotor-Mimic-v0 - ビジョン
+Isaac-Stack-Cube-Franka-IK-Rel-Visuomotor-Cosmos-Mimic-v0 - Cosmosビジョン
+Isaac-Stack-Cube-Bin-Franka-IK-Rel-Mimic-v0 - ビン内スタッキング
+GR1T2 ピックアンドプレースタスク
+Isaac-PickPlace-GR1T2-Abs-Mimic-v0 - ピックアンドプレース
+Isaac-PickPlace-GR1T2-WaistEnabled-Abs-Mimic-v0 - 腰関節有効
+Isaac-NutPour-GR1T2-Pink-IK-Abs-Mimic-v0 - ナット注ぎ
+Isaac-ExhaustPipe-GR1T2-Pink-IK-Abs-Mimic-v0 - 排気パイプ
+ロコマニピュレーションタスク
+Isaac-Locomanipulation-G1-Abs-Mimic-v0 - Unitree G1ロコマニピュレーション
+Galbot スタックタスク
+Isaac-Stack-Cube-Galbot-Left-Arm-Gripper-RmpFlow-Rel-Mimic-v0 - 左アームグリッパー（相対）
+Isaac-Stack-Cube-Galbot-Right-Arm-Suction-RmpFlow-Rel-Mimic-v0 - 右アーム吸着（相対）
+Isaac-Stack-Cube-Galbot-Left-Arm-Gripper-RmpFlow-Abs-Mimic-v0 - 左アームグリッパー（絶対）
+Isaac-Stack-Cube-Galbot-Right-Arm-Suction-RmpFlow-Abs-Mimic-v0 - 右アーム吸着（絶対）
+Agibot プレースタスク
+Isaac-Place-Mug-Agibot-Left-Arm-RmpFlow-Rel-Mimic-v0 - マグを立てて配置
+Isaac-Place-Toy2Box-Agibot-Right-Arm-RmpFlow-Rel-Mimic-v0 - おもちゃを箱に配置
+3. テレオペレーションでデモ記録可能なタスク
+record_demos.pyでテレオペレーション（SpaceMouse、キーボード、handtracking）によるデモ記録が可能です。基本的にすべてのタスクで使用できますが、以下が主に使用されています：
+Isaac-Stack-Cube-Franka-IK-Rel-v0 - キューブスタッキング
+Isaac-Lift-Cube-Franka-IK-Rel-v0 - キューブリフト
+Isaac-PickPlace-GR1T2-Abs-v0 - GR1T2ピックアンドプレース
+Isaac-NutPour-GR1T2-Pink-IK-Abs-v0 - ナット注ぎ
+Isaac-ExhaustPipe-GR1T2-Pink-IK-Abs-v0 - 排気パイプ
+Isaac-PickPlace-Locomanipulation-G1-Abs-v0 - ロコマニピュレーション
+使用方法
+RoboMimicで訓練する場合
+./isaaclab.sh -p scripts/imitation_learning/robomimic/train.py \    --task <タスク名> \    --algo bc \    --dataset ./datasets/dataset.hdf5
+Isaac Lab Mimicでデータ生成する場合
+./isaaclab.sh -p scripts/imitation_learning/isaaclab_mimic/generate_dataset.py \    --task <タスク名（-Mimic-v0で終わるもの）> \    --input_file ./datasets/dataset.hdf5 \    --output_file ./datasets/generated_dataset.hdf5
+テレオペレーションでデモを記録する場合
+./isaaclab.sh -p scripts/tools/record_demos.py \    --task <タスク名> \    --teleop_device spacemouse \    --dataset_file ./datasets/dataset.hdf5 \    --num_demos 10
+注意: すべてのタスクがすべての模倣学習手法に対応しているわけではありません。タスク名にrobomimic_bc_cfg_entry_pointがあるか、-Mimic-v0で終わるかを確認してください。
